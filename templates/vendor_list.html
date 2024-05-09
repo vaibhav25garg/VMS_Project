@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block link %}
+<!-- ===== CSS ===== -->
+<link rel="stylesheet" href="{% static "CSS/style.css" %}">
+{% endblock %}
+
+{% block body %}
+<div class="btn-add-del">
+  <button class="button-29" onclick="openForm()" role="button">Add Vendor</button>
+  <a class="button-29 del-29" href="{% url "deletevendor" 0 %}" role="button">Delete All</a>
+</div>
+  <!-- Table info -->
+  {% if edit %}
+  <!-- update vendor -->
+<div id="vendorupdateForm" class="popup">
+  <span class="close" onclick="closeUpdateForm()">&times;</span>
+  <h2>Update Vendor Information</h2>
+  <form id="vendorInfoForm" method='post'>
+      {% csrf_token %}
+      <label for="vendorName">Vendor's Code:</label><br>
+      <input type="text" id="vendorName" name="vendorName" value="{{ven.vendor_code}}" required>
+
+      <label for="vendorName">Vendor's Name:</label><br>
+      <input type="text" id="vendorName" name="vendorName" value="{{ven.name}}" required>
+
+      <label for="contactDetails">Contact No.</label><br>
+      <input id="contactDetails" name="contactDetails" value="{{ven.phone_number}}" required></input>
+
+      <label for="vendorName">Email:</label><br>
+      <input type="text" id="vendorName" name="vendorName" value="{{ven.email}}" required>
+
+      <label for="onTimeDeliveryRate">Total Delivery Days:</label><br>
+      <input type="number" id="onTimeDeliveryRate" name="onTimeDeliveryRate" value="{{ven.delivery_days}}" min="0" max="100" required>
+
+      <label for="address">Address:</label><br>
+      <textarea id="address" name="address" value="{{ven.address}}" required></textarea>
+      
+      <input type="submit" value="Submit">
+  </form>
+  {% else %}
+  <div class="container">
+    <ul class="responsive-table"> 
+      <li class="table-header">
+        <div class="col col-1">Vendor Code</div>
+        <div class="col col-2">Name</div>
+        <div class="col col-3">Email</div>
+        <div class="col col-4">Phone</div>
+        <div class="col col-5">Address</div>
+      </li>
+      {% for v in ven  %}
+      <li class="table-row col-m">
+        <div class="col col-1 " data-label="Vendor Code"><a href="{% url "VendorInfo" v.id %}">{{v.vendor_code}}</a></div>
+        <div class="col col-2" data-label="Name">{{v.name}}</div>
+        <div class="col col-3" data-label="Email">{{v.email}}</div>
+        <div class="col col-4" data-label="Phone">{{v.phone_number}}</div>
+        <div class="col col-5" data-label="Address">{{v.address}}</div>
+        {% comment %} <div class="col col-6" data-label="Operations"><a href="{% url "updatevendor" v.id %}" onclick="openUpdateForm()"><i class="fa-solid fa-pen-to-square"></i></a>
+          <a href="{% url "deletevendor" v.id %}"><i class="fa-solid fa-trash"></i></a>
+        </div> {% endcomment %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+<!-- add vendor -->
+
+<div id="vendorForm" class="popup">
+    <span class="close" onclick="closeForm()">&times;</span>
+    <h2>New Vendor:Vendor Information</h2>
+    <form id="vendorInfoForm" action="{% url "vendorlist" %}" method='post'>
+        {% csrf_token %}
+        <label for="vendorName">Vendor's Name:</label><br>
+        <input type="text" id="vendorName" name="vendorName" required>
+
+        <label for="contactDetails">Contact No.</label><br>
+        <input id="contactDetails" name="contactNo" required></input>
+
+        <label for="Email">Email:</label><br>
+        <input type="text" id="Email" name="Email" required>
+
+        <label for="DeliveryDays">Total Delivery Days:</label><br>
+        <input type="int" id="DeliveryDays" name="DeliveryDays" required>
+
+        <label for="address">Address:</label><br>
+        <textarea id="address" name="address" required></textarea>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static "js/index.js" %}"></script>
+{% endblock %}

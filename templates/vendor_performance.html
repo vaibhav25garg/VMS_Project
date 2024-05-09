@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block link %}
+<!-- ===== CSS ===== -->
+<link rel="stylesheet" href="{% static "CSS/style.css" %}">
+<link rel="stylesheet" href="{% static "CSS/vendor_info.css" %}">
+<link rel="stylesheet" href="{% static "CSS/ven_perform.css" %}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="ven-info">
+        <div>
+            <label for="">Email</label>
+            <p>{{ven.email}}</p>
+        </div>
+
+        <div>
+            <label for="">Phone</label>
+            <p>{{ven.phone_number}}</p>
+        </div>
+
+        <div>
+            <label for="">Vendor Rating</label>
+            <p>5 Star</p>
+        </div>
+
+        <div>
+            <label for="">Vendor Code</label>
+            <p>{{ven.vendor_code}}</p>
+        </div>
+
+        <div>
+            <label for="">Vendor Owner</label>
+            <p>{{ven.name}}</p>
+        </div>
+
+    </div>
+</div>
+<div class="ven-detail">
+    <div class="container1">
+        <h1>Vendor Performance</h1>
+        <div class="performance-item">
+            <label>Quality Rating(Out of 10):</label>
+            <span>{{perform.quality_rating_avg | floatformat:"2"}}/10</span> <!-- Replace with actual value -->
+        </div>
+        <div class="performance-item">
+            <label>On-Time Delivery Rate:</label>
+            <span>{{ perform.on_time_delivery_rate }}</span> <!-- Replace with actual value -->
+        </div>
+        <div class="performance-item">
+            <label>Response Time:</label>
+            <span>{{perform.average_response_time}} Minuts</span> <!-- Replace with actual value -->
+        </div>
+        <div class="performance-item">
+            <label>Fulfilment Rate:</label>
+            <span>{{perform.fulfillment_rate}}%</span> <!-- Replace with actual value -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static " js/vendor_info.js" %}"></script>
+<script src="{% static " js/index.js" %}"></script>
+{% endblock %}
+

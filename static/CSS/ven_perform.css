@@ -1,0 +1,39 @@
+
+    .container1 {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    }
+    
+    .performance-item {
+    margin-bottom: 20px;
+    margin-left: 60px;
+    }
+    
+    .performance-item label {
+    font-weight: bold;
+    margin-right: 5px;
+    }
+    
+    .performance-item span {
+    color: #666;
+    }
+    
+    @media (max-width: 768px) {
+    .container {
+    padding: 10px;
+    }
+    }
+
+.ven-detail{
+    background-color: rgb(214, 214, 214);
+}

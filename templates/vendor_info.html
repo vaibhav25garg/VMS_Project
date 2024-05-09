@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block link %}
+<!-- ===== CSS ===== -->
+<link rel="stylesheet" href="{% static "CSS/style.css" %}">
+<link rel="stylesheet" href="{% static "CSS/vendor_info.css" %}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="ven-info">
+        <div>
+            <label for="">Email</label>
+            <p>{{ven.email}}</p>
+        </div>
+
+        <div>
+            <label for="">Phone</label>
+            <p>{{ven.phone_number}}</p>
+        </div>
+
+        <div>
+            <label for="">Vendor Rating</label>
+            <p>5 Star</p>
+        </div>
+
+        <div>
+            <label for="">Vendor Code</label>
+            <p>{{ven.vendor_code}}</p>
+        </div>
+
+        <div>
+            <label for="">Vendor Owner</label>
+            <p>{{ven.name}}</p>
+        </div>
+
+          <div class="col col-6" data-label="Operations">
+            <label for="">Operations</label>
+            <a onclick="openUpdateForm()" ><i class="fa-solid fa-pen-to-square" style="color:black;"></i></a>
+            <a href="{% url "deletevendor" ven.id %}" ><i class="fa-solid fa-trash"  style="color:#531717;"></i></a>
+          </div>
+    </div>
+
+    
+  </div>
+  <div class="ven-detail">
+    <div class="option">
+        <a href="#" onclick="opendetailagain()">Detail</a>
+        <a href="#" onclick="opendetail()">Purchase Order</a>
+        <a href="{% url "performancematric" ven.id %}" >Performance Matrics</a>
+        <hr>
+    </div>
+    <div id="ven-detail">
+        <div class="detail">
+            <div>
+                <label for="">Vendor's Code</label>
+                <p>{{ven.vendor_code}}</p>
+                <hr>
+                <label for="">Vendor's Name</label>
+                <p>{{ven.name}}</p>
+                <hr>
+                <label for="">Contact No.</label>
+                <p>{{ven.phone_number}}</p>
+                <hr>
+                <label for="">Email</label>
+                <p>{{ven.email}}</p>
+                <hr>
+            </div>
+            <div>
+                <label for="">On Time Delivery Time</label>
+                <p>{{ven.delivery_days}}</p>
+                <hr>
+                <label for="">Quality Rating</label>
+                <p>85%</p>
+                <hr>
+                <label for="">Average Response Time</label>
+                <p>30 min</p>
+                <hr>
+                <label for="">Fullfill Rate</label>
+                <p>80%</p>
+                <hr>
+            </div>
+        </div>
+        <div class="address">
+            <div class='add'><i class="fa-solid fa-chevron-down"></i><h5>Address Information</h5></div>
+            <div>
+                <label for="">Shipping Address</label>
+                <p>{{ven.address}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- purchase order -->
+    <div class="purchase" id="purchase-detail">
+      <div class="container-1">
+        <div class="pur"><i class="fa-solid fa-money-check-dollar"></i><h4>Purchase Order (Account) <span>(3)</span></h4></div>
+        <ul class="responsive-table">
+          <li class="table-header">
+            <div class="col col-1">PO ID</div>
+            <div class="col col-2">Order Date</div>
+            <div class="col col-3">Items</div>
+            <div class="col col-4">Quantity</div>
+            <div class="col col-5">Delivery Date</div>
+            <div class="col col-6">Status</div>
+          </li>
+          {% for p in pur  %}
+          <li class="table-row col-m">
+              <div class="col col-1 " data-label="PO ID"><a href="{% url "purchaseacnowledgement" p.id %}">{{p.po_number}}</a></div>
+              <div class="col col-2" data-label="Order Date">{{p.order_date}}</div>
+              <div class="col col-3" data-label="Items">{{p.items |truncatechars:50}}</div>
+              <div class="col col-4" data-label="Quantity">{{p.quantity}}</div>
+              <div class="col col-5" data-label="Delivery Date"><a href="{% url "VendorInfo" p.vendor.id %}" style="text-decoration: none;">{{p.delivery_date}}</a></div>
+              <div class="col col-6" data-label="Status" >{{p.status}}</div>
+          </li>
+          {% endfor %}
+          <div>
+            <button class="view" type="submit">View More</button>
+          </div>
+        </ul>
+      </div>    
+    </div>
+    <div class="perform" id="perform">
+      <div class="delivery_rate">
+        <h2>On Time Delivery Rating</h2>
+        <img src="{% static "image/On-time-delivery.png" %}" alt="" width="50%">
+      </div>
+      <div class="delivery_rate">
+        <h2>Product Quality Rating</h2>
+        <img src="{% static "image/Product-quality.png" %}" alt="" width="50%">
+      </div>
+      <div class="delivery_rate">
+        <h2>Average Response Time</h2>
+        <img src="{% static "image/response_time.png" %}" alt="" width="50%">
+      </div>
+      <div class="delivery_rate">
+        <h2>Fullfill Rate</h2>
+        <img src="{% static "image/fullfil_rate.jpg" %}" alt="" width="50%">
+      </div>
+    </div>
+  </div>
+
+  <!-- update vendor -->
+
+<div id="vendorupdateForm" class="popup">
+  <span class="close" onclick="closeUpdateForm()">&times;</span>
+  <h2>Update Vendor Information</h2>
+  <form id="vendorInfoForm" method='post'>
+      {% csrf_token %}
+      <label for="vendorName">Vendor's Code:</label><br>
+      <input type="text" id="vendorName" value="{{ven.vendor_code}}" required>
+
+      <label for="vendorName">Vendor's Name:</label><br>
+      <input type="text" id="vendorName" name="vendorName" value="{{ven.name}}" required>
+
+      <label for="contactDetails">Contact No.</label><br>
+      <input id="contactDetails" name="contactDetails" value="{{ven.phone_number}}" required></input>
+
+      <label for="vendorName">Email:</label><br>
+      <input type="text" id="email" name="email" value="{{ven.email}}" required>
+
+      <label for="onTimeDeliveryRate">Total Delivery Days:</label><br>
+      <input type="number" id="deliveryDays" name="diliveryDays" value="{{ven.delivery_days}}" min="0" max="100" required>
+
+      <label for="address">Address:</label><br>
+      <textarea id="address" name="address" value="{{ven.address}}" required></textarea>
+      
+      <input type="submit" value="Submit">
+  </form>
+</div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static "js/vendor_info.js" %}"></script>
+    <script src="{% static "js/index.js" %}"></script>
+{% endblock %}

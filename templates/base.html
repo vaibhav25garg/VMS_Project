@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {% block title %}
+
+  {% endblock %}
+
+  <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+
+  {% block link %}
+
+  {% endblock %}
+
+  
+  {% block style %}
+
+  {% endblock %}
+  
+  <!-- ===== Boxicons CSS ===== -->
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+  <title>Responsive Navigation Menu Bar</title>
+</head>
+
+<body>
+  <nav>
+    {% if messages %}
+  <div id="messages-container" class="container2">
+      <ul id="messages-list">
+          {% for message in messages %}
+              <li class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                  <span class="close-btn" onclick="closeMessage(this)">&times;</span>
+                  {{ message }}
+              </li>
+          {% endfor %}
+      </ul>
+  </div>
+{% endif %}
+    <div class="nav-bar">
+      <i class='bx bx-menu sidebarOpen'></i>
+      <span class="logo navLogo"><a href="{% url 'vendorlist' %}">VMS</a></span>
+
+      <div class="menu">
+        <div class="logo-toggle">
+          <span class="logo"><a href="{% url 'vendorlist' %}">VMS</a></span>
+          <i class='bx bx-x siderbarClose'></i>
+        </div>
+
+        <ul class="nav-links">
+          <li><a href="{% url 'vendorlist' %}">Vendors</a></li>
+          <li><a href="{% url 'PurchaseOrder' %}">Purchase Order</a></li>
+        </ul>
+      </div>
+
+      <div class="darkLight-searchBox">
+        <div class="dark-light">
+          <i class='bx bx-moon moon'></i>
+          <i class='bx bx-sun sun'></i>
+        </div>
+
+        <div class="searchBox">
+          <div class="searchToggle">
+            <i class='bx bx-x cancel'></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  {% block body %}
+
+  {% endblock %}
+
+
+  {% block script %}
+
+  {% endblock %}
+  <script src="{% static "js/index.js" %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+.ven-info{
+    justify-content: space-between;
+}
+.ven-info div p{
+    font-size: 1.5rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-left: 30px;
+    color: rgb(33, 33, 88);
+}
+
+
+.ven-info div label{
+    font-size: 1.2rem;
+}
+.ven-info div i{
+    font-size: 25px;
+}
+.ven-info div div a i{
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+    
+}
+
+.ven-info div div{
+    text-align: center;
+}
+
+.ack-opt{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    
+}
+
+.ack-opt div input{
+    width: 15px;
+    height:15px;
+}
+
+

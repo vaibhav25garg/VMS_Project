@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block link %}
+<!-- ===== CSS ===== -->
+<link rel="stylesheet" href="{% static "CSS/style.css" %}">
+<link rel="stylesheet" href="{% static "CSS/vendor_info.css" %}">
+<link rel="stylesheet" href="{% static "CSS/purchase_detail.css" %}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="ven-info">
+        <div>
+            <i class="fa-solid fa-building-columns"></i>
+            <label for="">Purchase Order</label>
+            <p><Span>{{pur.po_number}}</Span></p>
+        </div>
+    </div>
+</div>
+<div class="ven-detail">
+    <div class="option">
+        <a style="font-weight: 600;">Order Detail</a>
+        <hr>
+    </div>
+    <div id="ven-detail">
+        <div class="detail">
+            <div>
+                <label for="">Vendor's Code</label>
+                <p>{{pur.vendor.vendor_code}}</p>
+                <hr>
+                <label for="">Items Name</label>
+                <p>{{pur.items}}</p>
+                <hr>
+                <label for="">Quantity</label>
+                <p>{{pur.quantity}}</p>
+                <hr>
+                <label for="">Status</label>
+                <p>{{pur.status}}</p>
+                <hr>
+            </div>
+            <div>
+                <label for="">Order Date</label>
+                <p>{{pur.order_date}}</p>
+                <hr>
+                <label for="">Delivery Date</label>
+                <p>{{pur.delivery_date}}</p>
+                <hr>
+                <label for="">Quality Rating</label>
+                <p>{{pur.quality_rating}}</p>
+                <hr>
+                <label for="">Item Issued Date</label>
+                <p>{{pur.issue_date}}</p>
+                <hr>
+                <label for="">Acknowledgment Time</label>
+                <p>{{pur.acknowledgment_date}}</p>
+                <hr>
+            </div>
+        </div>
+        <div class="address">
+            <div class='add'><i class="fa-solid fa-chevron-down"></i>
+                <h5>Address Information</h5>
+            </div>
+            <div>
+                <label for="">Shipping Address</label>
+                <p>{{pur.vendor.address}}</p>
+            </div>
+        </div>
+        <!-- Acknowledgement Area  -->
+        <form action="" method='post'>
+            {% csrf_token %}
+            <div style="display: flex; justify-content: space-between;">
+                <div class="Acknowledge" style="font-weight: 500; width: 48%;">
+                    <div class='add'><i class="fa-solid fa-chevron-down"></i>
+                        <h5>Acknowledge Order</h5>
+                    </div>
+                    <div class="ack-opt">
+                        <div><input type="radio" name="Acknowledge" value="Confirm">
+                            <label for="Acknowledge">Confirm</label><br>
+                        </div>
+                        <div>
+                            <input type="radio" name="Acknowledge" value="Not Available">
+                            <label for="Acknowledge">Not Available</label><br>
+                        </div>
+                    </div>
+                    <label for="" style="margin-top: 50px;">Message</label><br>
+                    <textarea id="address" name="address" style="width: 100%;"></textarea>
+                </div>
+                <div class="Acknowledge" style="font-weight: 500; width: 48%;">
+                    <div class='add'><i class="fa-solid fa-chevron-down"></i>
+                        <h5>Status Update   </h5>
+                    </div>
+                    <div class="ack-opt">
+                        <div class="col col-6">
+                            <label for="">Status:</label>
+                            <select name="status" id="status">
+                              <option value="completed">Completed</option>
+                              <option value="Pending">Pending</option>
+                              <option value="Cencel">Cencel</option>
+                            </select>
+                          </div>
+                          <div class="col col-6">
+                            <label for="">Dispatching Status:</label>
+                            <select name="issue" id="status">
+                              <option value="Order Dispatched">Order Dispatched</option>
+                              <option value="Not Yet Dispatched">Not Yet Dispatched</option>
+                              <option value="Wait for Confirmation">Wait for Confirmation</option>
+                            </select>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit"
+                style="padding: 7px; border-radius: 7px; background-color: rgba(53, 53, 247, 0.459); margin-left: 95%;">Submit</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static "js/purchase_detail.js" %}"></script>
+{% endblock %}
+

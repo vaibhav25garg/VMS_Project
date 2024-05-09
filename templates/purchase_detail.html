@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block link %}
+<!-- ===== CSS ===== -->
+<link rel="stylesheet" href="{% static "CSS/style.css" %}">
+<link rel="stylesheet" href="{% static "CSS/vendor_info.css" %}">
+<link rel="stylesheet" href="{% static "CSS/purchase_detail.css" %}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="ven-info">
+        <div>
+            <i class="fa-solid fa-building-columns"></i>
+            <label for="">Purchase Order</label>
+            <p><Span>{{pur.po_number}}</Span></p>
+        </div>
+        <div>
+            <label for="">Operations</label>
+            <div class="col col-6" data-label="Operations"><a href="#" onclick="openUpdateForm()"><i
+                        class="fa-solid fa-pen-to-square"></i></a>
+                <a href="{% url "deletepurchaseorder" pur.id %}"><i class="fa-solid fa-trash" style="color: rgb(161, 62, 62);"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ven-detail">
+    <div class="option">
+        <a style="font-weight: 600;">Order Detail</a>
+        <hr>
+    </div>
+    <div id="ven-detail">
+        <div class="detail">
+            <div>
+                <label for="">Vendor's Code</label>
+                <p>{{pur.vendor.vendor_code}}</p>
+                <hr>
+                <label for="">Items Name</label>
+                <p>{{pur.items}}</p>
+                <hr>
+                <label for="">Quantity</label>
+                <p>{{pur.quantity}}</p>
+                <hr>
+                <label for="">Status</label>
+                <p>{{pur.status}}</p>
+                <hr>
+            </div>
+            <div>
+                <label for="">Order Date</label>
+                <p>{{pur.order_date}}</p>
+                <hr>
+                <label for="">Delivery Date</label>
+                <p>{{pur.delivery_date}}</p>
+                <hr>
+                <label for="">Quality Rating</label>
+                <p>{{pur.quality_rating}}</p>
+                <hr>
+                <label for="">Item Issue Date</label>
+                <p>{{pur.issue_date}}</p>
+                <hr>
+                <label for="">Acknowledgment Time</label>
+                <p>{{pur.acknowledgment_date}}</p>
+                <hr>
+            </div>
+        </div>
+        <div class="address">
+            <div class='add'><i class="fa-solid fa-chevron-down"></i>
+                <h5>Address Information</h5>
+            </div>
+            <div>
+                <label for="">Shipping Address</label>
+                <p>{{pur.vendor.address}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- update vendor -->
+<div id="vendorupdateForm" class="popup">
+  <span class="close" onclick="closeUpdateForm()">&times;</span>
+  <h2>Update Vendor Information</h2>
+  <form id="vendorInfoForm" method="post">  
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Render form fields as paragraphs -->
+    <button type="submit">Submit</button>
+</form>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static "js/purchase_detail.js" %}"></script>
+{% endblock %}
+

@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block link %}
+<!-- ===== CSS ===== -->
+<link rel="stylesheet" href="{% static "CSS/style.css" %}">
+<link rel="stylesheet" href="{% static "CSS/purchase_order.css" %}">
+{% endblock %}
+
+{% block body %}
+<div class="btn-add-del">
+    <button class="button-29" onclick="openForm()" role="button">Create Order</button>
+    
+    <div>
+        <button class="button-29 del-29" onclick="listvendor()" role="button">Filter vendor</button>
+        <div id="vender-id" class="list-v">
+            <ul>
+                <a href="{% url "PurchaseOrder" %}"><li>All</li></a>
+                {% for v in ven %}
+                <a href="{% url "Purchasefilter" v.id %}"><li>{{v.name}} ({{v.vendor_code}})</li></a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+</div>
+<!-- order info -->
+<div class="purchase" id="purchase-detail">
+    <ul class="responsive-table">
+        <li class="table-header">
+            <div class="col col-1">PO ID</div>
+            <div class="col col-2">Order Date</div>
+            <div class="col col-3">Items</div>
+            <div class="col col-4">Quantity</div>
+            <div class="col col-5">Vender Code</div>
+            <div class="col col-6">Status</div>
+        </li>
+        {% for p in pur  %}
+        <li class="table-row col-m">
+            <div class="col col-1 " data-label="PO ID"><a href="{% url "PurchaseDetail" p.id %}">{{p.po_number}}</a></div>
+            <div class="col col-2" data-label="Order Date">{{p.order_date}}</div>
+            <div class="col col-3" data-label="Items">{{p.items |truncatechars:50}}</div>
+            <div class="col col-4" data-label="Quantity">{{p.quantity}}</div>
+            <div class="col col-5" data-label="Delivery Date"><a href="{% url "VendorInfo" p.vendor.id %}" style="text-decoration: none;">{{p.vendor.name}} ({{p.vendor.vendor_code}})</a></div>
+            <div class="col col-6" data-label="Status" >{{p.status}}</div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<!-- add order -->
+
+<div id="vendorForm" class="popup">
+    <span class="close" onclick="closeForm()">&times;</span>
+    <h2>New Order</h2>
+    <form id="vendorInfoForm" method="post">  
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Render form fields as paragraphs -->
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<!-- update order -->
+
+<div id="vendorupdateForm" class="popup">
+    <span class="close" onclick="closeUpdateForm()">&times;</span>
+    <h2>Update Order Information</h2>
+    <form id="vendorInfoForm">
+        <label for="vendorName">Vendor's Code:</label><br>
+        <input type="text" id="vendorName" name="vendorName" value="24313" required>
+
+        <label for="contactDetails">Item Name:</label><br>
+        <input id="contactDetails" name="contactDetails" required></input>
+
+        <label for="vendorName">Quantity:</label><br>
+        <input type="number" id="vendorName" name="vendorName" min="0" max="5" required>
+
+        <div class="r1">
+            <div>
+                <label for="status">Status:</label><br>
+                <select name="status" id="status">
+                    <option value="Delivered">Delivered</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Cencel">Cencel</option>
+                  </select>
+            </div>
+
+            <div>
+                <label for="qualityRatingAvg">Quality Rating:</label><br>
+                <input type="number" id="qualityRatingAvg" name="qualityRatingAvg" min="0" max="5" required>
+            </div>
+        </div>
+
+
+        <div class="r1">
+            <div>
+                <label for="averageResponseTime">Issue Date:</label><br>
+                <input type="date" id="averageResponseTime" name="averageResponseTime" required><br><br>
+            </div>
+
+            <div>
+                <label for="fulfillmentRate">Acknowledgment Date:</label><br>
+                <input type="date" id="fulfillmentRate" name="fulfillmentRate" required><br><br>
+            </div>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static "js/purchase_order.js" %}"></script>
+{% endblock %}
