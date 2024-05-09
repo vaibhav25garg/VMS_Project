@@ -3,7 +3,7 @@
 git clone https://github.com/vaibhav25garg/VMS_Project.git
 
 # Navigate to the project directory
-cd VendorManagementSystem
+cd VMS_Project
 
 # Install dependencies
 pip install -r requirements.txt
