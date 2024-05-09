@@ -62,23 +62,14 @@
                 <hr>
                 <label for="">Contact No.</label>
                 <p>{{ven.phone_number}}</p>
-                <hr>
+                <hr>  
+            </div>
+            <div>
                 <label for="">Email</label>
                 <p>{{ven.email}}</p>
                 <hr>
-            </div>
-            <div>
-                <label for="">On Time Delivery Time</label>
+                <label for="">Total days to deliver an items</label>
                 <p>{{ven.delivery_days}}</p>
-                <hr>
-                <label for="">Quality Rating</label>
-                <p>85%</p>
-                <hr>
-                <label for="">Average Response Time</label>
-                <p>30 min</p>
-                <hr>
-                <label for="">Fullfill Rate</label>
-                <p>80%</p>
                 <hr>
             </div>
         </div>
@@ -110,33 +101,12 @@
               <div class="col col-2" data-label="Order Date">{{p.order_date}}</div>
               <div class="col col-3" data-label="Items">{{p.items |truncatechars:50}}</div>
               <div class="col col-4" data-label="Quantity">{{p.quantity}}</div>
-              <div class="col col-5" data-label="Delivery Date"><a href="{% url "VendorInfo" p.vendor.id %}" style="text-decoration: none;">{{p.delivery_date}}</a></div>
+              <div class="col col-5" data-label="Delivery Date">{{p.delivery_date}}</div>
               <div class="col col-6" data-label="Status" >{{p.status}}</div>
           </li>
           {% endfor %}
-          <div>
-            <button class="view" type="submit">View More</button>
-          </div>
         </ul>
       </div>    
-    </div>
-    <div class="perform" id="perform">
-      <div class="delivery_rate">
-        <h2>On Time Delivery Rating</h2>
-        <img src="{% static "image/On-time-delivery.png" %}" alt="" width="50%">
-      </div>
-      <div class="delivery_rate">
-        <h2>Product Quality Rating</h2>
-        <img src="{% static "image/Product-quality.png" %}" alt="" width="50%">
-      </div>
-      <div class="delivery_rate">
-        <h2>Average Response Time</h2>
-        <img src="{% static "image/response_time.png" %}" alt="" width="50%">
-      </div>
-      <div class="delivery_rate">
-        <h2>Fullfill Rate</h2>
-        <img src="{% static "image/fullfil_rate.jpg" %}" alt="" width="50%">
-      </div>
     </div>
   </div>
 
