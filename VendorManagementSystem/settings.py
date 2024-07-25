@@ -29,11 +29,11 @@ SECRET_KEY = config('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
+DEBUG = config('DEBUG', cast=bool)
 # DEBUG = True
 
-# ALLOWED_HOSTS = config("ALLOWED_HOSTS")
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
+# ALLOWED_HOSTS = []
 
 
 # Application definition
