@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import dj_database_url
-from dj_database_url import config
+from decouple import config
+from dotenv import load_dotenv
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,8 +32,8 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG')
 # DEBUG = True
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS")
-# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = config("ALLOWED_HOSTS")
+ALLOWED_HOSTS = []
 
 
 # Application definition
