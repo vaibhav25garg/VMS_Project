@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import dj_database_url
+from dj_database_url import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,14 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-4c^s=0j1z$s61o52a0ee68!&06&p5t@u-eu_7zb%4_*865)6q7'
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
-# DEBUG = False
+DEBUG = config('DEBUG')
+# DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = config("ALLOWED_HOSTS")
 # ALLOWED_HOSTS = []
 
 
@@ -83,23 +84,27 @@ WSGI_APPLICATION = 'VendorManagementSystem.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
-import dj_database_url
+# from decouple import config
 
-# Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://tumor_database_user:5DNjepUFuJPhPY504lKIA7IHVxOmKen7@dpg-cqd7h53v2p9s73e9df90-a.oregon-postgres.render.com/tumor_database',
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+DATABASES["default"] = dj_database_url.parse(config('DATABASE_URL'))
+
+
+# # Replace the SQLite DATABASES configuration with PostgreSQL:
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         # Replace this value with your local database's connection string.
+#         default='DATABASE_URL',
+#         conn_max_age=600
+#     )
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
